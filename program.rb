@@ -44,10 +44,10 @@ class DisjointCycles
       if current_pointer == stop_at
         new_disjoint_cycles.push(current_cycle)
 
+        break if to_include.length == 0
+
         current_pointer = to_include.shift
         stop_at = current_pointer
-
-        break if to_include.length == 0
 
         current_cycle = []
       end
@@ -67,6 +67,10 @@ class DisjointCycles
   end
 end
 
+alpha = DisjointCycles.new([
+  [1, 3, 10, 9, 8, 4], [2, 5, 6], [7]
+], 'α')
+
 delta = DisjointCycles.new([
   [1, 3, 5, 7], [2, 4, 8, 12], [6, 9, 10, 11]
 ], 'δ')
@@ -77,8 +81,13 @@ gamma = DisjointCycles.new([
 
 puts delta.print
 puts gamma.print
+puts '--'
 puts delta.of(gamma).print
 puts gamma.of(delta).print
+puts '--'
+puts alpha.print
+puts alpha.of(alpha).print
+puts alpha.of(alpha.of(alpha)).print
 
 # TESTS
 def run_test(description, expected, received)
