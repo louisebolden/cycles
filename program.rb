@@ -56,6 +56,23 @@ class DisjointCycles
     DisjointCycles.new(new_disjoint_cycles, "#{name} ○ #{other_disjoint_cycles.name}")
   end
 
+  def to_the_power_of(power)
+    raise 'Power must be an integer' unless power.is_a?(Integer)
+    raise 'Not ready to calculate inverses yet' if power < 0
+
+    return [] if power == 0 # This should be identity permutation? Best notation?
+
+    resulting_composition = self
+    composition_count = 1
+
+    while composition_count < power
+      resulting_composition = resulting_composition.of(self)
+      composition_count += 1
+    end
+
+    resulting_composition
+  end
+
   def print
     raise 'No cycles present' unless cycles.is_a?(Array)
 
